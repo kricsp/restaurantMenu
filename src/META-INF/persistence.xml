@@ -10,10 +10,10 @@ transaction-type="RESOURCE_LOCAL">
 <properties>
 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 <property name="javax.persistence.jdbc.url"
-value="jdbc:mysql://localhost:3306/restaurant" />
-<property name="javax.persistence.jdbc.user" value="root" />
+value="jdbc:mysql://localhost:3306/<your_db_name>" />
+<property name="javax.persistence.jdbc.user" value="<your_db_username>" />
 <property name="javax.persistence.jdbc.password"
-value="qwerty@123" />
+value="<your_db_password>" />
 <!-- EclipseLink should create the database schema automatically -->
 <property name="eclipselink.ddl-generation" value="create-tables" />
 <property name="eclipselink.ddl-generation.output-mode"
