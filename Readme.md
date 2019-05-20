@@ -1,5 +1,10 @@
 Programming language used: Java
 
+Design:
+
+Every class is called from main UI class - RestaurantForm.java.
+The 3 classes BreakfastMenu, LunchMenu and DinnerMenu each have methods to add, delete, modify and swap dishes and are called via button click.
+
 Edit the following properties in persistence.xml in src/META-INF in Eclipse:
 
 ```
