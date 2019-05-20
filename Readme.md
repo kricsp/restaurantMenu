@@ -15,4 +15,4 @@ $ make
 
 Execute the following file:
 
-$ ./main.sh 
+$ ./main.sh  
