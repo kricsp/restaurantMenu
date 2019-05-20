@@ -27,7 +27,7 @@ import javax.swing.JList;
 
 public class RestaurantForm {
 
-	private JFrame frame,frame2,frame3, frame4;
+	private JFrame frame,frame2,frame3, frame4, frame5, frame6, frame7;
 	private JPanel jPanel,jPanel2,jPanel3,jPanel4, jPanel5, jPanel6;
 	private JTable jTable, jTable2, jTable3;
 	private JList<String> jList1,jList2;
@@ -173,7 +173,7 @@ public class RestaurantForm {
 		btnShowMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int count=1;
+				int count=1,count2=1,count3=1;
 				frame2 = new JFrame("Menu");
 				BoxLayout boxLayout = new BoxLayout(frame2.getContentPane(), BoxLayout.Y_AXIS);
 				frame2.getContentPane().setLayout(boxLayout);
@@ -214,11 +214,11 @@ public class RestaurantForm {
 			                dish.getQuantity(), dish.getPrice()});
 				}
 				for (Dish dish: new LunchMenu().getDish()) {
-					dtm2.addRow(new Object[] { count++, dish.getName(), dish.getDescription(), dish.getAddon(),
+					dtm2.addRow(new Object[] { count2++, dish.getName(), dish.getDescription(), dish.getAddon(),
 			                dish.getQuantity(), dish.getPrice()});
 				}
 				for (Dish dish: new DinnerMenu().getDish()) {
-					dtm3.addRow(new Object[] { count++, dish.getName(), dish.getDescription(), dish.getAddon(),
+					dtm3.addRow(new Object[] { count3++, dish.getName(), dish.getDescription(), dish.getAddon(),
 			                dish.getQuantity(), dish.getPrice()});
 				}
 				jScrollPane=new JScrollPane();
@@ -312,17 +312,67 @@ public class RestaurantForm {
 							if(i==0){
 								dish.setTime("breakfast");
 								if(new BreakfastMenu().delete(dish)!=0) {
+									frame4.revalidate();
+									frame4.repaint();
 									jFrame3Label4 = new JLabel("Successful");
-									jFrame3Label4.setBounds(100, 190, 120, 200);
+									jFrame3Label4.setBounds(250, 70, 120, 200);
 									frame4.getContentPane().add(jFrame3Label4);
+									frame4.revalidate();
+									frame4.repaint();
+									//frame4.pack();
 								}else { 
+									frame4.revalidate();
+									frame4.repaint();
 									jFrame3Label4 = new JLabel("Error, no dish found.");
-									jFrame3Label4.setBounds(100, 190, 120, 200);
+									jFrame3Label4.setBounds(250, 70, 120, 200);
 									frame4.getContentPane().add(jFrame3Label4);
+									frame4.revalidate();
+									frame4.repaint();
+									//frame4.pack();
 								}
 							}
-							if(i==1){dish.setTime("lunch");new LunchMenu().delete(dish);};
-							if(i==2){dish.setTime("dinner");new DinnerMenu().delete(dish);};
+							if(i==1){
+								dish.setTime("lunch");
+								if(new LunchMenu().delete(dish)!=0) {
+									frame4.revalidate();
+									frame4.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 70, 120, 200);
+									frame4.getContentPane().add(jFrame3Label4);
+									frame4.revalidate();
+									frame4.repaint();
+								}else { 
+									frame4.revalidate();
+									frame4.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 70, 120, 200);
+									frame4.getContentPane().add(jFrame3Label4);
+									frame4.revalidate();
+									frame4.repaint();
+								}
+							
+							}
+							if(i==2){
+								dish.setTime("dinner");
+								if(new DinnerMenu().delete(dish)!=0) {
+									frame4.revalidate();
+									frame4.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 70, 120, 200);
+									frame4.getContentPane().add(jFrame3Label4);
+									frame4.revalidate();
+									frame4.repaint();
+								}else { 
+									frame4.revalidate();
+									frame4.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 70, 120, 200);
+									frame4.getContentPane().add(jFrame3Label4);
+									frame4.revalidate();
+									frame4.repaint();
+								}
+								}
+							
 							}
 							
 						}						
@@ -338,6 +388,372 @@ public class RestaurantForm {
 		});
 		
 		frame.getContentPane().add(deleteDish);
+		
+		
+		JButton updatePrice = new JButton("Update Price");
+		updatePrice.setBounds(250, 200, 120, 30);
+		updatePrice.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				frame5 = new JFrame("Update Price");
+				frame5.getContentPane().setLayout(null);
+				jFrame3Label5 = new JLabel("Enter the name of dish to update the Price: ");
+				jFrame3Label5.setBounds(105, 30, 300, 26);
+				frame5.getContentPane().add(jFrame3Label5);
+				jTextField1 = new JTextField();
+				jTextField1.setText("Name of dish");
+				jTextField1.setBounds(350, 30, 146, 26);
+				frame5.getContentPane().add(jTextField1);
+				jTextField1.setColumns(10);
+				jFrame3Label6 = new JLabel("Select the time: ");
+				jFrame3Label6.setBounds(105, 60, 300, 26);
+				frame5.getContentPane().add(jFrame3Label6);
+								
+				DefaultListModel<String> listModel2 = new DefaultListModel<>();
+				listModel2.addElement("Breakfast");
+				listModel2.addElement("Lunch");
+				listModel2.addElement("Dinner");
+				
+				jList2 = new JList<>(listModel2);
+				jList2.setBounds(200, 60, 100, 70);
+				frame5.getContentPane().add(jList2);
+				
+				jFrame3Label4 = new JLabel("Enter the new Price: ");
+				jFrame3Label4.setBounds(105,  140, 300, 25);
+				frame5.getContentPane().add(jFrame3Label4);
+				jTextField2 = new JTextField();
+				jTextField2.setText("New Price");
+				jTextField2.setBounds(350, 140, 100, 26);
+				frame5.getContentPane().add(jTextField2);
+				JButton updateButton = new JButton("Update");
+				updateButton.setBounds(100, 170, 120, 30);
+				updateButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						Dish dish=new Dish();
+						dish.setName(jTextField1.getText());
+						dish.setPrice(Integer.parseInt(jTextField2.getText()));
+						for(int i=0;i<jList2.getModel().getSize();i++) {
+							if(jList2.isSelectedIndex(i)) {
+							if(i==0){
+								dish.setTime("breakfast");
+								if(new BreakfastMenu().changePrice(dish)!=0) {
+									frame5.revalidate();
+									frame5.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame5.getContentPane().add(jFrame3Label4);
+									frame5.revalidate();
+									frame5.repaint();
+									//frame4.pack();
+								}else { 
+									frame5.revalidate();
+									frame5.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame5.getContentPane().add(jFrame3Label4);
+									frame5.revalidate();
+									frame5.repaint();
+									//frame4.pack();
+								}
+							}
+							if(i==1){
+								dish.setTime("lunch");
+								if(new LunchMenu().changePrice(dish)!=0) {
+									frame5.revalidate();
+									frame5.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame5.getContentPane().add(jFrame3Label4);
+									frame5.revalidate();
+									frame5.repaint();
+								}else { 
+									frame5.revalidate();
+									frame5.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame5.getContentPane().add(jFrame3Label4);
+									frame5.revalidate();
+									frame5.repaint();
+								}
+							
+							}
+							if(i==2){
+								dish.setTime("dinner");
+								if(new DinnerMenu().changePrice(dish)!=0) {
+									frame5.revalidate();
+									frame5.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame5.getContentPane().add(jFrame3Label4);
+									frame5.revalidate();
+									frame5.repaint();
+								}else { 
+									frame5.revalidate();
+									frame5.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame5.getContentPane().add(jFrame3Label4);
+									frame5.revalidate();
+									frame5.repaint();
+								}
+								}
+							
+							}
+							
+						}						
+					}
+				});
+				frame5.getContentPane().add(updateButton);
+				frame5.setBounds(100, 100, 700, 300);
+				frame5.setVisible(true);
+			
+			}
+		});
+		
+		frame.getContentPane().add(updatePrice);
+		
+		JButton updateDesc = new JButton("Update Description");
+		updateDesc.setBounds(250, 270, 150, 30);
+		updateDesc.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				frame6 = new JFrame("Update Description");
+				frame6.getContentPane().setLayout(null);
+				jFrame3Label5 = new JLabel("Enter the name of dish to update the Description: ");
+				jFrame3Label5.setBounds(105, 30, 300, 26);
+				frame6.getContentPane().add(jFrame3Label5);
+				jTextField1 = new JTextField();
+				jTextField1.setText("Name of dish");
+				jTextField1.setBounds(400, 30, 146, 26);
+				frame6.getContentPane().add(jTextField1);
+				jTextField1.setColumns(10);
+				jFrame3Label6 = new JLabel("Select the time: ");
+				jFrame3Label6.setBounds(105, 60, 300, 26);
+				frame6.getContentPane().add(jFrame3Label6);
+								
+				DefaultListModel<String> listModel2 = new DefaultListModel<>();
+				listModel2.addElement("Breakfast");
+				listModel2.addElement("Lunch");
+				listModel2.addElement("Dinner");
+				
+				jList2 = new JList<>(listModel2);
+				jList2.setBounds(200, 60, 100, 70);
+				frame6.getContentPane().add(jList2);
+				
+				jFrame3Label4 = new JLabel("Enter the new Description: ");
+				jFrame3Label4.setBounds(105,  140, 300, 25);
+				frame6.getContentPane().add(jFrame3Label4);
+				jTextField2 = new JTextField();
+				jTextField2.setText("New Description");
+				jTextField2.setBounds(270, 140, 300, 26);
+				frame6.getContentPane().add(jTextField2);
+				JButton updateButton = new JButton("Update");
+				updateButton.setBounds(100, 170, 120, 30);
+				updateButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						Dish dish=new Dish();
+						dish.setName(jTextField1.getText());
+						dish.setDescription(jTextField2.getText());
+						for(int i=0;i<jList2.getModel().getSize();i++) {
+							if(jList2.isSelectedIndex(i)) {
+							if(i==0){
+								dish.setTime("breakfast");
+								if(new BreakfastMenu().changeDescription(dish)!=0) {
+									frame6.revalidate();
+									frame6.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame6.getContentPane().add(jFrame3Label4);
+									frame6.revalidate();
+									frame6.repaint();
+									//frame4.pack();
+								}else { 
+									frame6.revalidate();
+									frame6.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame6.getContentPane().add(jFrame3Label4);
+									frame6.revalidate();
+									frame6.repaint();
+									//frame4.pack();
+								}
+							}
+							if(i==1){
+								dish.setTime("lunch");
+								if(new LunchMenu().changeDescription(dish)!=0) {
+									frame6.revalidate();
+									frame6.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame6.getContentPane().add(jFrame3Label4);
+									frame6.revalidate();
+									frame6.repaint();
+								}else { 
+									frame6.revalidate();
+									frame6.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame6.getContentPane().add(jFrame3Label4);
+									frame6.revalidate();
+									frame6.repaint();
+								}
+							
+							}
+							if(i==2){
+								dish.setTime("dinner");
+								if(new DinnerMenu().changeDescription(dish)!=0) {
+									frame6.revalidate();
+									frame6.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame6.getContentPane().add(jFrame3Label4);
+									frame6.revalidate();
+									frame6.repaint();
+								}else { 
+									frame6.revalidate();
+									frame6.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame6.getContentPane().add(jFrame3Label4);
+									frame6.revalidate();
+									frame6.repaint();
+								}
+								}
+							
+							}
+							
+						}						
+					}
+				});
+				frame6.getContentPane().add(updateButton);
+				frame6.setBounds(100, 100, 700, 300);
+				frame6.setVisible(true);
+			
+			}
+		});
+		
+		frame.getContentPane().add(updateDesc);
+		
+		JButton swapTime = new JButton("Swap Dish Time");
+		swapTime.setBounds(250, 330, 150, 30);
+		swapTime.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				frame7 = new JFrame("Swap Dish Time");
+				frame7.getContentPane().setLayout(null);
+				jFrame3Label5 = new JLabel("Enter the name of dish to update the Dish Time: ");
+				jFrame3Label5.setBounds(105, 30, 300, 26);
+				frame7.getContentPane().add(jFrame3Label5);
+				jTextField1 = new JTextField();
+				jTextField1.setText("Name of dish");
+				jTextField1.setBounds(400, 30, 146, 26);
+				frame7.getContentPane().add(jTextField1);
+				jTextField1.setColumns(10);
+				jFrame3Label6 = new JLabel("Select the new time: ");
+				jFrame3Label6.setBounds(105, 60, 300, 26);
+				frame7.getContentPane().add(jFrame3Label6);
+								
+				DefaultListModel<String> listModel2 = new DefaultListModel<>();
+				listModel2.addElement("Breakfast");
+				listModel2.addElement("Lunch");
+				listModel2.addElement("Dinner");
+				
+				jList2 = new JList<>(listModel2);
+				jList2.setBounds(230, 60, 100, 70);
+				frame7.getContentPane().add(jList2);
+				
+				
+				JButton updateButton = new JButton("Update");
+				updateButton.setBounds(100, 170, 120, 30);
+				updateButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						Dish dish=new Dish();
+						dish.setName(jTextField1.getText());
+						for(int i=0;i<jList2.getModel().getSize();i++) {
+							if(jList2.isSelectedIndex(i)) {
+							if(i==0){
+								dish.setTime("breakfast");
+								if(new BreakfastMenu().swapDish(dish)!=0) {
+									frame7.revalidate();
+									frame7.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame7.getContentPane().add(jFrame3Label4);
+									frame7.revalidate();
+									frame7.repaint();
+									//frame4.pack();
+								}else { 
+									frame7.revalidate();
+									frame7.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame7.getContentPane().add(jFrame3Label4);
+									frame7.revalidate();
+									frame7.repaint();
+									//frame4.pack();
+								}
+							}
+							if(i==1){
+								dish.setTime("lunch");
+								if(new LunchMenu().swapDish(dish)!=0) {
+									frame7.revalidate();
+									frame7.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame7.getContentPane().add(jFrame3Label4);
+									frame7.revalidate();
+									frame7.repaint();
+								}else { 
+									frame7.revalidate();
+									frame7.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame7.getContentPane().add(jFrame3Label4);
+									frame7.revalidate();
+									frame7.repaint();
+								}
+							
+							}
+							if(i==2){
+								dish.setTime("dinner");
+								if(new DinnerMenu().swapDish(dish)!=0) {
+									frame7.revalidate();
+									frame7.repaint();
+									jFrame3Label4 = new JLabel("Successful");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame7.getContentPane().add(jFrame3Label4);
+									frame7.revalidate();
+									frame7.repaint();
+								}else { 
+									frame7.revalidate();
+									frame7.repaint();
+									jFrame3Label4 = new JLabel("Error, no dish found.");
+									jFrame3Label4.setBounds(250, 90, 120, 200);
+									frame7.getContentPane().add(jFrame3Label4);
+									frame7.revalidate();
+									frame7.repaint();
+								}
+								}
+							
+							}
+							
+						}						
+					}
+				});
+				frame7.getContentPane().add(updateButton);
+				frame7.setBounds(100, 100, 700, 300);
+				frame7.setVisible(true);
+			
+			}
+		});
+		
+		frame.getContentPane().add(swapTime);
 		
 		
 		

@@ -27,13 +27,38 @@ public class BreakfastMenu {
         em.close();
         return count;
 	};
-	public void voidchangePrice() {};
-	public void changeDescription() {};
-	public void swapDish() {};
+	public Integer changePrice(Dish dish) {
+		int count=0;
+		em.getTransaction().begin();
+        Query q = em.createQuery("Update Dish d SET d.Price = '"+dish.getPrice()+"' where d.name='"+dish.getName()+"' and d.time='"+dish.getTime()+"'");
+        count=q.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return count;
+	};
+	public Integer changeDescription(Dish dish) {
+		int count=0;
+		em.getTransaction().begin();
+        Query q = em.createQuery("Update Dish d SET d.description = '"+dish.getDescription()+"' where d.name='"+dish.getName()+"' and d.time='"+dish.getTime()+"'");
+        count=q.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return count;
+	};
+	public Integer swapDish(Dish dish) {
+		int count=0;
+		em.getTransaction().begin();
+        Query q = em.createQuery("Update Dish d SET d.time = '"+dish.getTime()+"' where d.name='"+dish.getName()+"'");
+        count=q.executeUpdate();
+        //em.createQuery("DELETE FROM Dish d1 JOIN  WHERE d1.name=:name AND d1.time=:time").executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return count;
+	};
 	public List<Dish> getDish() {
 		
 			em.getTransaction().begin();
-	        Query q = em.createQuery("select d from Dish d where d.time='breakfast'");
+	        Query q = em.createQuery("select distinct d from Dish d where d.time='breakfast'");
 	        List<Dish> dishList = q.getResultList();
 	        em.close();
 	        return dishList;

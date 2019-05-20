@@ -11,22 +11,47 @@ public class LunchMenu {
     EntityManager em = factory.createEntityManager();
 	
 	public void add(Dish dish) {
-		
-       
-        em.getTransaction().begin();
-        em.persist(dish);
-        em.getTransaction().commit();
-        em.close();
-	}
-	public void delete(Dish dish) {
 		em.getTransaction().begin();
         em.persist(dish);
         em.getTransaction().commit();
         em.close();
+	}
+	public Integer delete(Dish dish) {
+		int count=0;
+		em.getTransaction().begin();
+        Query q = em.createQuery("DELETE FROM Dish d where d.name='"+dish.getName()+"' and d.time='"+dish.getTime()+"'");
+        count=q.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return count;
 	};
-	public void voidchangePrice() {};
-	public void changeDescription() {};
-	public void swapDish() {};
+	public Integer changePrice(Dish dish) {
+		int count=0;
+		em.getTransaction().begin();
+        Query q = em.createQuery("Update Dish d SET d.Price = '"+dish.getPrice()+"' where d.name='"+dish.getName()+"' and d.time='"+dish.getTime()+"'");
+        count=q.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return count;
+	};
+	public Integer changeDescription(Dish dish) {
+		int count=0;
+		em.getTransaction().begin();
+        Query q = em.createQuery("Update Dish d SET d.description = '"+dish.getDescription()+"' where d.name='"+dish.getName()+"' and d.time='"+dish.getTime()+"'");
+        count=q.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return count;
+	};
+	public Integer swapDish(Dish dish) {
+		int count=0;
+		em.getTransaction().begin();
+        Query q = em.createQuery("Update Dish d SET d.time = '"+dish.getTime()+"' where d.name='"+dish.getName()+"'");
+        count=q.executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return count;
+	};
 	public List<Dish> getDish() {
 		
 			em.getTransaction().begin();
